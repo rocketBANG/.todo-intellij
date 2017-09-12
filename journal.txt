@@ -11,3 +11,12 @@ Make the first three characters of the selected line replace with [x]
         3: document.getLineStartOffset
         4: document.replaceString
 
+13/09/17
+Only allow the shortcut to work on .task/.todo files
+    Plan
+        1: Only allow the shortcut to work when a file is open
+        2: Only allow the shortcut to work when the file that is open has the extension .task or .todo
+    Execution
+        1: Doesn't seem like I need to register when the shortcut should work
+        2: openedFile = CommonDataKeys.VIRTUAL_FILE.getData(e.getDataContext())
+            openedFile.getExtension()

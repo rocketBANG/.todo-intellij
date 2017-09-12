@@ -1,12 +1,14 @@
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.DataConstants;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
+import com.intellij.openapi.vfs.VirtualFile;
 
 /**
  * Created by Reuben on 12/09/2017.
@@ -25,6 +27,15 @@ public class TestAction extends AnAction {
         //Access document, caret, and selection
         final Document document = editor.getDocument();
         final SelectionModel selectionModel = editor.getSelectionModel();
+        final VirtualFile openedFile = CommonDataKeys.VIRTUAL_FILE.getData(e.getDataContext());
+        String fileExt = openedFile.getExtension();
+
+        if(fileExt == null || !(fileExt.equals("tasks") || fileExt.equals("todos"))) {
+            return;
+        }
+        
+        System.out.println("running");
+
         final int start = selectionModel.getSelectionStart();
         final int end = selectionModel.getSelectionEnd();
 
