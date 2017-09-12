@@ -1,0 +1,13 @@
+12/09/17
+Make the first three characters of the selected line replace with [x]
+    Plan
+        1: Need to get the currently selected line
+        2: Need to get the text of the currently selected line
+        3: Get the position of the start of the currently selected line
+        4: Remove the beginning of the line and replace with new text
+    Execution
+        1: document.getLineNumber
+        2: document.getText
+        3: document.getLineStartOffset
+        4: document.replaceString
+

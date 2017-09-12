@@ -6,6 +6,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.TextRange;
 
 /**
  * Created by Reuben on 12/09/2017.
@@ -27,13 +28,26 @@ public class TestAction extends AnAction {
         final int start = selectionModel.getSelectionStart();
         final int end = selectionModel.getSelectionEnd();
 
-        System.out.println(document.getLineNumber(start));
-        
+        int lineStart = document.getLineStartOffset(document.getLineNumber(start));
+        String startingText = document.getText(TextRange.create(lineStart, lineStart + 3));
+
+        String replacementText;
+
+        if(startingText.equals("[x]")) {
+            replacementText = "[ ]";
+        }
+        else if(startingText.equals("[ ]")) {
+            replacementText = "[x]";
+        }
+        else {
+            return;
+        }
+
         //New instance of Runnable to make a replacement
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                document.replaceString(start, end, "Replacement");
+                document.replaceString(lineStart, lineStart + 3, replacementText);
             }
         };
         //Making the replacement
